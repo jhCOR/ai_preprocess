@@ -26,6 +26,7 @@ def checkTime(DataList, rateList):
 	for i in range(len(DataList)):
 		times = len(DataList[i])/float(rateList[i])
 		times = '{:.3f}'.format(times)
+		times = float(times)
 		resultList.append(times)
 		print(times)
 	return resultList
@@ -45,7 +46,7 @@ def saveToJson(dataList):
 		json_object=json.load(f)
 		for i in range(len(dataList)):
 			json_object['Q1'][i]["duration"] = dataList[i]
-	with open('./answer.json', 'w', encoding='utf-8') as fs:
+	with open('./GB팀.json', 'w', encoding='utf-8') as fs:
 		json.dump(json_object, fs, indent="\t",  ensure_ascii=False)
 
 def readAsBinary(filePath):
@@ -83,9 +84,6 @@ def main(csvfilePath):
 	list_1, list_2=readMultipleFiles(pathList)
 	result = checkTime(list_1, list_2)
 	saveToJson(result)
-	print("--NEXT STEP--")
-	binaryData = readAsBinary(pathList[3])
-	analyzeFile(binaryData)
     
 if __name__ == "__main__":
 	main(sys.argv[1])
